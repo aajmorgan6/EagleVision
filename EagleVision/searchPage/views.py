@@ -434,7 +434,7 @@ def landingPage(request: HttpRequest):
     if not bc_user:
         return redirect("/login")
 
-    if len(Student.objects.all()) == 0:
+    if len(FilterCourseInfo.objects.all()) == 0:
         create_class_list()
     
     # See if user exists in database
@@ -688,7 +688,7 @@ def add_class(class_id, activity_id, user, data, user_name):
     professor = data.get("professor")
 
     student = Student.objects.get(username=user)
-
+    edit = True
     watch = PersonalWatchlist.objects.filter(
             class_id=class_id, 
             activity_id=activity_id,
@@ -697,6 +697,7 @@ def add_class(class_id, activity_id, user, data, user_name):
         ).first()
 
     if not watch:
+        edit = False
         # Create new class
         watch = PersonalWatchlist(
             class_id=class_id,
@@ -734,7 +735,8 @@ def add_class(class_id, activity_id, user, data, user_name):
             course_code=course_code+activity_id,
             class_name_filter=section_name.split(" - ")[1]
         )
-    course.add_watcher()
+    if not edit:
+        course.add_watcher()
     course.save()
 
 def notification_selection(request): 
