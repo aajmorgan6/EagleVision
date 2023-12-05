@@ -8,3 +8,4 @@ redis==5.0.1
 requests==2.27.1
 sqlparse==0.4.4
 whitenoise==6.4.0
+google-auth==2.14.1
