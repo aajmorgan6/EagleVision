@@ -7,3 +7,4 @@ python-dotenv==1.0.0
 redis==5.0.1
 requests==2.27.1
 sqlparse==0.4.4
+whitenoise==6.4.0
