@@ -1,0 +1,59 @@
+html, body {
+    height: 100%;
+}
+
+/* .background{
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: brightness(0.6);
+} */
+
+/* .lightsOn {
+    background: linear-gradient(transparent, maroon),
+    url(/static/imgs/lightsOn.jpg);
+} */
+.status {
+    display: flex;
+}
+
+.thin {
+    font-weight: 200 !important;
+}
+
+.rightBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 230px;
+}
+
+/* .gasson{
+    background: linear-gradient(transparent, maroon),
+    url(/static/imgs/gasson.jpg);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: brightness(0.6);
+} */
+
+/* .skyView {
+    background: linear-gradient(transparent, maroon),
+    url(/static/imgs/skyView.jpg);
+} */
+
+.name {
+    width: 205px;
+    font-weight: 200 !important;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown {
+    margin-left: auto;
+}

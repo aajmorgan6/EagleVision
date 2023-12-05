@@ -1,0 +1,63 @@
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-content: center;
+}
+
+.background{
+    background: linear-gradient(transparent, maroon),
+    url(/static/imgs/skyView.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: brightness(0.4);
+}
+
+.theme {
+    color: white;
+}
+.inverseTheme {
+    color: maroon;
+}
+
+.cornerStyle {
+    border-radius: 10px !important;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    /* border-color: black;
+    border-style: solid; */
+}
+
+.card {
+    height: 60%;
+    width: 50%;
+    margin-bottom: 6%;
+}
+
+.btn {
+    width: 100%;
+    color: white !important;
+    background-color: maroon !important;
+    border-radius: 4px !important;
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}

@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Login Account error</title>
+    <link rel="stylesheet" href="{% static 'css/invalid.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="innerContainer">
+            <div class="card">
+                <div class="image">
+                    <img src="{% static 'imgs/error.jpg' %}" alt="aaa" class="placeholder-image"/>
+                </div>
+                <div class="header">
+                    <h1>You can't access this page</h1>
+                    <p>This is not a Boston College account</p>
+                </div>
+                <div class="content">
+                    <p class="current-account">Your current account:</p>
+                    <p class="account-info">{{ user.email}}</p>
+                    <p>Based on the information your current account is not identified as a Boston College account.</p>
+                    <h2>You might want:</h2>
+                    <ul>
+                        <li>Double check the email you entered.</li>
+                        <li>Try something ends with "bc.edu".</li>
+                        <li>Contact the Information Technology Services</li>
+                    </ul>
+                    <p>We would like to offer you any help you need, so do not hesitate to contact us for questions. Or if you believe you entered the wrong email, you can return to the login page and try again.</p>
+                    <a href="logout" class="button-link">Return to Login Page</a>
+                </div>
+            </div>
+        </div>
+    </div>    
+</body>
+{% endblock %}
+</html>
+
+

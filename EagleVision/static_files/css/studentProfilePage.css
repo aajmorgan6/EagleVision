@@ -1,0 +1,56 @@
+html, body {
+    height: 100%;
+}
+
+.background{
+    background: linear-gradient(transparent, maroon),
+    url(/static/imgs/skyView.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: brightness(0.4);
+}
+
+.theme {
+    color: white;
+}
+.inverseTheme {
+    color: maroon;
+}
+
+.cardEdits{
+    border-radius: 30px;
+}
+
+.cornerStyle {
+    border-radius: 10px !important;
+}
+
+.studentTable {
+    margin-left: 3%;
+    width: 80%;
+}
+
+.container{
+    display: flex;
+    margin: 2%;
+    align-items: flex-start;
+    /* border-color: black;
+    border-style: solid; */
+}
+
+.card {
+    box-shadow: 
+    rgba(255, 255, 255, 0.4) -5px 5px, 
+    rgba(255, 255, 255, 0.3) -10px 10px;
+}
+
+.signOut {
+    padding: 10px 20px;
+    text-align: center;
+    width: 100%;
+    border-radius: 4px !important;
+    background-color:maroon;
+    color:white;
+    text-decoration: none;
+}

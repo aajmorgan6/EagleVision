@@ -1,0 +1,65 @@
+.background{
+    background: linear-gradient(transparent, maroon),
+    url(/static/imgs/gasson.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: brightness(0.4);
+}
+
+.theme {
+    color: white;
+}
+
+.inverseTheme {
+    color: maroon;
+}
+
+.center-items {
+    margin-bottom: 2%;
+}
+
+.cornerStyle {
+    border-radius: 10px !important;
+}
+
+.mainTable {
+    margin-left: 2%;
+    width: 100%;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.innerContainer {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 1%;
+    margin-bottom: 5%;
+    /* border-color: black;
+    border-style: solid; */
+}
+
+.rightBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 210px;
+}
+
+.card {
+    box-shadow: 
+    rgba(255, 255, 255, 0.4) -5px 5px, 
+    rgba(255, 255, 255, 0.3) -10px 10px;
+}
+
+.status {
+    display: flex;
+}
+
+#open {
+    padding-left: 8px;
+    color: rgb(4, 189, 4);
+}

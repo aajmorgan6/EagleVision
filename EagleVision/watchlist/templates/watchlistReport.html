@@ -1,0 +1,81 @@
+{% extends "navbar.html" %}
+{% load static %}
+
+<!DOCTYPE html> 
+
+<html lang="en">
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/watchlistReport.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Watchlist</title>
+</head>
+
+    <form method="post" action="{% url 'watchlist' %}">
+        {% csrf_token %}
+        <div class="container cornerStyle">
+            <div class="card">
+                <div class="card-header inverseTheme h1">Watchlist</div>
+                <table class="table table-hover">
+                    <thead>
+                        <th class="inverseTheme h1">
+                            <div class="sorting">
+                                <select class="form-select left" name="semesterOptions">
+                                    <option value="2024S" name="semesterOption" {% if semester == "2024S" %}selected{% endif %}>2024S</option>
+                                    <option value="2023F" name="semesterOption" {% if semester == "2023F" %}selected{% endif %}>2023F</option>
+                                </select>
+                                <select class="form-select middle" name="watchlistOptions" id="watchlistOptions">
+                                    <option value="courseName" name = "course_name" {% if selected_option == 'courseName' %}selected{% endif %}>Course Name</option>
+                                    <option value="courseID" name = "course_id" {% if selected_option == 'courseID' %}selected{% endif %}>Course ID</option>
+                                    <option value="numWatches" {% if selected_option == 'numWatches' %}selected{% endif %}>Number of Watches</option>
+                                    <option value="professor" {% if selected_option == 'professor' %}selected{% endif %}>Professor A-Z</option>
+                                    <option value="professor_r" {% if selected_option == 'professor_r' %}selected{% endif %}>Professor Z-A</option>
+                                </select>
+                                <button class="btn btn-primary enter btn-outline-light right" type="submit">Sort</button>
+                                </form>
+                            </div>
+                        </th>
+                        <th class="inverseTheme h1"></th>
+                        <th class="inverseTheme h1"></th>
+                        <th class="inverseTheme h1"></th>                
+                        <tr class="inverseTheme">
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Professor</th>
+                            <th scope="col">Watches</th>
+                            <th scope="col">Student List</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if not watches %}
+                        <td>Sorry, no watchlists available</td>
+                        {% else %}
+                        {% for watch in watches %}
+                        {% if watch.num_watchers > 0 %}
+                        <tr>
+                        <td>{{ watch.class_name }}</td>
+                        <td>{{ watch.professor }}</td>
+                        <td>{{ watch.num_watchers }}</td>
+                        <td>
+                            <a class="inverseTheme h2" type="submit" class="btn btn-primary"
+                                    href="{{ watch.class_id }}{{ watch.activity_id }}" title="Student Info">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="35" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                                        <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                                        <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+                                </svg>
+                            </a>   
+                            <!-- <button class="button signOut inverseTheme" name="class_name" value="{{ watch.class_id }}">Class</button> -->
+                        </form>
+                        </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{% endblock %}
+</html>

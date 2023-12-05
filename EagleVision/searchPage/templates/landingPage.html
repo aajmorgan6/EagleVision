@@ -1,0 +1,632 @@
+{% extends "navbar.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en"> 
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">    
+    <title>EagleVision</title>
+    <link rel="stylesheet" href="{% static 'css/landingPage.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mb-2 theme" style="text-align:center;">Welcome Back, {{ name }}</h1>
+        <div class="innerContainer">
+        <div class="card cornerStyle" style="width: 20.5rem;">
+            <form method="post" action="{% url 'search' %}">
+                {% csrf_token %}
+                <div class="card-header inverseTheme card-add">Search Options</div>
+                <div class="card-body">
+                    <input name="search" class="form-control" list="datalistOptions" 
+                    id="exampleDataList" placeholder="Type to search...">
+                    <datalist id="datalistOptions">
+                        <option value="Philosophy">
+                        <option value="Finance">
+                        <option value="Economics">
+                        <option value="Computer Science">
+                        <option value="Biology">
+                    </datalist>
+                    <div class="filter-area">
+                        <button class="filter-button filter-button-left" name="filters" value="true" type="submit">
+                            Submit
+                        </button>
+                        <button class="filter-button filter-button-right" name="clear" value="true" type="submit">
+                            Clear Filters
+                        </button> 
+                    </div>
+                    
+                </div>
+                <div class="accordion " id="accordionPanelsStayOpenExample">
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="true" aria-controls="panelsStayOpen-collapseFive">
+                                    Subject Area
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    {%for major in  majors %}
+                                    {% if major.0 != "" %}
+                                    <div class="form-check form-switch">
+                                        <input value={{major.0}} class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="course_code"
+                                        {% if major.0 in course_code %}checked{% endif %}>
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">{{major.1}}</label>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor%}
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="accordion-item ">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                          Days
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <div class="form-check form-switch">
+                                <input value="monday" name="week" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'monday' in week %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">M</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="tuesday" name="week" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'tuesday' in week %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">T</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="wednesday" name="week" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'wednesday' in week %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">W</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="thursday" name="week" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'thursday' in week %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">TH</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="friday" name="week" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'friday' in week %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">F</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="saturday" name="week" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'friday' in week %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">S</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="sunday" name="week" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'friday' in week %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Su</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="asynch" name="week" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Asynch</label>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" 
+                          aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                            Time of Day
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <div class="form-check form-switch">
+                                <input value="early_morning" name="time" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'early_morning' in time %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Early Morning [00:00-09:59]</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="late_morning" name="time" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'late_morning' in time %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Late Morning [10:00-11:59]</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="early_afternoon" name="time" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'early_afternoon' in time %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Early Afternoon [12:00-13:59]</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="late_afternoon" name="time" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'late_afternoon' in time %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Late Afternoon [14:00-17:59]</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="evening" name="time" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if 'evening' in time %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Evening [18:00-23:59]</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false" aria-controls="panelsStayOpen-collapseEight">
+                            Fulfills Requirements
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Art</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Cultural Diversity</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Elective Requirements</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">General Graduate Requirement</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">History I</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">History II</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Literature</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Major Requirements</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Mathematics</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Minor Requirements</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Natural Science</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Philosophy</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Social Science</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Theology</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Writing</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+                            School
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="school" value="CSOM"
+                                {% if "CSOM" in schools %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Carroll School of Management</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="school" value="CSON"
+                                {% if "CSON" in schools %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Connell School of Nursing</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="school" value="LAWS"
+                                {% if "LAWS" in schools %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Law School</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="school" value="LYNCH"
+                                {% if "LYNCH" in schools %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Lynch School of Education and Human Development</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="school" value="MCAS"
+                                {% if "MCAS" in schools %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Morrissey College of Arts and Sciences</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="school" value="SCHILLER"
+                                {% if "SCHILLER" in schools %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Schiller Institute</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="school" value="SOCIAL"
+                                {% if "SOCIAL" in schools %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">School of Social Work</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="school" value="THEO"
+                                {% if "THEO" in schools %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">School of Theology and Ministry</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="school" value="WOODS">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Woods College of Advancing Studies</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false" aria-controls="panelsStayOpen-collapseSeven">
+                            Credits
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <div class="form-check form-switch">
+                                <input value="1.0" name="credits" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if '1.0' in credits %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">1 Credit</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="2.0" name="credits" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if '2.0' in credits %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">2 Credits</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="3.0" name="credits" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if '3.0' in credits %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">3 Credits</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="4.0" name="credits" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if '4.0' in credits %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">4 Credits</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="5.0" name="credits" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if '5.0' in credits %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">5 or more Credits</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#panelsStayOpen-collapseNine" aria-expanded="false" aria-controls="panelsStayOpen-collapseNine">
+                            Instructors
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseNine" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <input name="instructor" class="form-control" list="datalistOptionsNew" 
+                            id="newDataList" placeholder="Type to search...">
+                            <datalist id="datalistOptionsNew">
+                                <option value="Prof. John">
+                                <option value="Prof. Julia">
+                                <option value="Prof. Sarah">
+                                <option value="Prof. Mike">
+                                <option value="Prof. Emma">
+                            </datalist>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#panelsStayOpen-collapseTen" aria-expanded="false" aria-controls="panelsStayOpen-collapseTen">
+                            Delivery Method
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <div class="form-check form-switch">
+                                <input value="clinical" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Clinical</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="discussion" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Discussion</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="doct_cont" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Doct Continuation</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="field" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Field</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="hybrid" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Hybrid</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="independ" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Independent</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="internship" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Internship</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="lab" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Lab</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="lecture" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Lecture</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="online" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Online</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="online_async" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Online Asynchronous</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="online_sync" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Online Synchronous</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="practicum" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Practicum</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="recitation" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Recitation</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="seminar" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Seminar</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="studio" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Studio</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="thesis" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Thesis</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input value="tutorial" name="delivery" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Tutorial</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#panelsStayOpen-collapseEleven" aria-expanded="false" aria-controls="panelsStayOpen-collapseEleven">
+                            Course Level
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseEleven" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Both Grad and Undergrad</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Graduate</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Undergraduate</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#panelsStayOpen-collapseTwelve" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwelve">
+                            Registration Permissions
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwelve" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">None</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Department</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Instructor</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item course-option">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#panelsStayOpen-collapseThirteen" aria-expanded="false" aria-controls="panelsStayOpen-collapseThirteen">
+                            Open Seats
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThirteen" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Open</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Closed</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+
+            <div class="card mainTable cornerStyle">
+                <div class="card-header card-add inverseTheme">Search Results</div>
+                <table class="table">
+                    <form method="post" action="{% url 'search' %}">
+                        {% csrf_token %}
+                        <div class="filters">
+                        {% for filter in filters %}
+                            <button class="tag" name="remove" value="{{ filter }}" type="submit">
+                                {{ filter }}
+                                <div class="icon-tag">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-file-excel-fill" viewBox="0 0 16 16">
+                                        <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M5.884 4.68 8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 1 1 .768-.64z"/>
+                                    </svg>
+                                </div>
+                            </button>
+                        {% endfor %}
+                        </div>
+                    </form>
+                    <tbody>                
+                        {%for class in classes%}
+                            <tr class="">
+                                <td>
+                                    <div class="accordion accordion-flush">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                        <button class="accordion-button {% if class.courseOffering.id != open_course %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#collapse{{class.courseOffering.id}}" aria-expanded="{% if class.courseOffering.id != open_course %}false{% else %}true{% endif %}" aria-controls="collapse{{class.courseOffering.id}}">
+                                        {{class.courseOffering.name}} 
+                                      </button>
+                                    </h2>
+                                    <div id="collapse{{class.courseOffering.id}}" class="accordion-collapse collapse {% if class.courseOffering.id == open_course %}show{% endif %}">
+                                      <div class="accordion-body">
+                                        <div class="classContainer">
+                                            <p>{{class.courseOffering.descr.formatted}}</p>
+                                            <br>
+                                        </div>
+                                        <div class="conatiner">
+                                            <b>Credits: {{ class.courseOffering.creditOptionId }}</b>
+                                            <br>
+                                            <b>Fulfills Requirements: Core</b>
+                                        </div>
+                                        <br>
+                                        <div class="sectionContainer">
+                                            <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">Section</th>
+                                                    <th scope="col">Instructor</th>
+                                                    <th scope="col">Day</th>
+                                                    <th scope="col">Time</th>
+                                                    <th scope="col">Location</th>
+                                                    <th scope="col">Spaces</th>
+                                                    <th scope="col">Alert</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for attribute in class.activities %}
+                                                    <form method="post" action="{% url 'add' %}">
+                                                        {% csrf_token %}
+                                                        <input name="class_id" value="{{ class.courseOffering.id }}" hidden="true"/>
+                                                        <input name="class_name" value="{{ class.courseOffering.name }}" hidden="true"/>
+                                                        <input name="activity_id" value="{{ attribute.section }}" hidden="true"/>
+                                                    <tr class="{% if forloop.counter0|divisibleby:2 %}{% else %}odd{% endif %}">
+                                                        <input name="section_name" value="{{ attribute.name }}" hidden="true"/>
+                                                        <input name="professor" value="{{ attribute.instructors }}" hidden="true"/>
+                                                        <td>{{ attribute.section}} {{ attribute.activity_type }}</td>
+                                                        <td>{{ attribute.instructors }}</td>
+                                                        <td>{{ attribute.day }}</td>
+                                                        <td>{{ attribute.time }} </td>
+                                                        <td>{{ attribute.location }}</td> 
+                                                        <td>{{ attribute.registered }}</td> 
+                                                        <td>
+                                                            <div class="input-group in-back">
+                                                                {% if attribute.watching %}
+                                                                    <button value="drop" name="submit_type" type="submit" class="eye" title="Remove Alert" {% if not config %}disabled{% endif %}>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+                                                                        </svg>
+                                                                    </button>
+                                                                    <button value="add" name="submit_type" type="submit" class="eye eye1" title="Edit Alert"{% if not config %}disabled{% endif %}>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                                                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                                                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                                                                        </svg>
+                                                                    </button>
+                                                                    {% else %}
+                                                                    <input value="add" name="submit_type" hidden />
+                                                                    <button type="submit" class="eye" title="Add Alert" {% if not config %}disabled{% endif %}>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="green" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+                                                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+                                                                          </svg>
+                                                                    </button>
+                                                                    {% endif %}
+                                                                <select class="form-select" name="watchlistOptions mb-2" id="watchlistOptions" {% if not config %}disabled{% endif %}> 
+                                                                    <option value="1" {% if "1" in attribute.alert %}selected{% endif %}>1 Seat Left</option> 
+                                                                    <option value="2" {% if "2" in attribute.alert %}selected{% endif %}>2 Seats Left</option>
+                                                                    <option value="3" {% if "3" in attribute.alert %}selected{% endif %}>3 Seats Left</option> 
+                                                                    <option value="4" {% if "4" in attribute.alert %}selected{% endif %}>4 Seats Left</option>
+                                                                    <option value="5" {% if "5" in attribute.alert %}selected{% endif %}>5 Seats Left</option>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        
+                                                    </tr> 
+                                                </form>
+                                                    {% endfor %}
+                                                
+                                                </tbody>
+                                                
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {%endfor%}
+                    <tr>
+                    </tr>
+                    </tbody>
+                </table>
+                
+                <form method="post" action="{% url 'search' %}">
+                    {% csrf_token %}
+                <div class="center-pagination">
+                    <div class="pagination">
+                        Showing {{start|add:1}} to {{end|add:1}} of {{ course_length }}
+                        <input name="values" value="{{ start }} {{ end }}" hidden="true"/>
+                        <div class="mt-1">
+                            <button name="paginate" value="page_left" class="b-p" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                                    <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                                </svg>
+                            </button>
+                            <button name="paginate" value="page_right" class="b-p" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+</body-->
+</html>

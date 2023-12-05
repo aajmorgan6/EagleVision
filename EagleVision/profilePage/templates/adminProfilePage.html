@@ -1,0 +1,171 @@
+{% extends "navbar.html" %}
+{% load static %}
+
+<!DOCTYPE html> 
+
+<html lang="en">
+{% block content %}
+<head>
+    <meta charset="UTF-8">   
+    <link rel="stylesheet" href="{% static 'css/adminProfilePage.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>EagleVision Profile</title>
+</head>
+    <div class="container">
+        
+        <div class="leftside">
+            <div class="card cardSpace cornerStyle" style="width: 18rem;">
+                <div class="card-add card-title card-header inverseTheme" style="text-align:center;">{{ name }}</div>
+        
+                <div class="card-body mt-2">
+                    <p>Email: {{ email }}</p>
+                    <p>Department: {{ user.majors }}</p>
+                </div>
+                
+                {% if dev %}
+                <a href="change_user/"><button class="button theme" type="submit">Switch user type</button></a>
+                {% endif %}
+        
+                <div class="card-footer">
+                    <a class="button signOut theme" type="submit" href="editAdminProfile/">
+                        Edit Profile
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="card cornerStyle">
+                <div class="card-add card-title card-header inverseTheme" style="text-align:center;">System Status</div>
+                <div class="card-footer border-0">
+                    <form action="/profile/current_change" class="mt-2">
+                        {% if config %}
+                        <button id="open" class="switchButton" type="submit">Close Status</button>
+                        {%else%}
+                        <button id="close" class="switchButton" type="submit">Open Status</button>
+                        {%endif%}
+                    </form>
+                </div>
+
+            </div> 
+
+        </div>
+        
+        <div class="card mainTable cornerStyle">
+            <div class="card-header card-add inverseTheme">Watch List</div>
+            <table class="table">
+                <tbody>
+                    {%for class in classes%}
+                            <td>
+                                <form action="{% url "removeClass" class.courseOffering.id %}" method="post" class="mb-0">
+                                    {% csrf_token %}
+                                <div class="accordion accordion-flush">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                            <button type="submit" class="btn-danger" title="Remove All Watches" {% if not config %}disabled{% endif %} {% if attribute.watching %}checked{% endif %}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+                                                </svg>
+                                            </button>
+                                            <button class="accordion-button {% if class.courseOffering.id != open_course %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#collapse{{class.courseOffering.id}}" aria-expanded="{% if class.courseOffering.id != open_course %}false{% else %}true{% endif %}" aria-controls="collapse{{class.courseOffering.id}}">
+                                            {{class.courseOffering.name}} 
+                                          </button>
+                                    </h2>
+                                </form>
+                                    <div id="collapse{{class.courseOffering.id}}" class="accordion-collapse collapse {% if class.courseOffering.id == open_course %}show{% endif %}">
+                                      <div class="accordion-body">
+                                        <div class="classContainer">
+                                            <p>{{class.courseOffering.descr.formatted}}</p>
+                                            <br>
+                                        </div>
+                                        <div class="conatiner">
+                                            <b>Credits: {{ class.courseOffering.creditOptionId }}</b>
+                                            <br>
+                                            <b>Fulfills Requirements: Core</b>
+                                        </div>
+                                        <br>
+                                        <div class="sectionContainer">
+                                            <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">Section</th>
+                                                    <th scope="col">Instructor</th>
+                                                    <th scope="col">Day</th>
+                                                    <th scope="col">Time</th>
+                                                    <th scope="col">Location</th>
+                                                    <th scope="col">Spaces</th>
+                                                    <th scope="col">Alert</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for attribute in class.activities %}
+                                                        <form method="post" action="{% url 'changeAlert' %}">
+                                                            {% csrf_token %}
+                                                            <input name="class_id" value="{{ class.courseOffering.id }}" hidden="true"/>
+                                                            <input name="class_name" value="{{ class.courseOffering.name }}" hidden="true"/>
+                                                        <tr class="{% if forloop.counter0|divisibleby:2 %}{% else %}odd{% endif %}">
+                                                            <input name="section_name" value="{{ attribute.name }}" hidden="true"/>
+                                                            <input name="activity_id" value="{{ attribute.section }}" hidden="true"/>
+                                                            <input name="professor" value="{{ attribute.instructors }}" hidden="true"/>
+                                                            <td>{{ attribute.section}} {{ attribute.activity_type }}</td>
+                                                            <td>{{ attribute.instructors }}</td>
+                                                            <td>{{ attribute.day }}</td>
+                                                            <td>{{ attribute.time }} </td>
+                                                            <td>{{ attribute.location }}</td> 
+                                                            <td>{{ attribute.registered }}</td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    {% if attribute.watching %}
+                                                                    <button value="drop" name="submit_type" type="submit" class="swirl remove-swirl" title="Remove Alert" {% if not config %}disabled{% endif %}>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+                                                                        </svg>
+                                                                    </button>
+                                                                    <button value="add" name="submit_type" type="submit" class="eye" title="Edit Alert"{% if not config %}disabled{% endif %}>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                                                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                                                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                                                                        </svg>
+                                                                    </button>
+                                                                    {% else %}
+                                                                    <input value="add" name="submit_type" hidden />
+                                                                    <button type="submit" class="swirl" title="Add Alert" {% if not config %}disabled{% endif %}>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="green" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+                                                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+                                                                          </svg>
+                                                                    </button>
+                                                                    {% endif %}
+                                                                    <select class="form-select" name="watchlistOptions mb-2" id="watchlistOptions" {% if not config %}disabled{% endif %}> 
+                                                                        <option value="1" {% if "1" in attribute.alert %}selected{% endif %}>1 Seat Left</option> 
+                                                                        <option value="2" {% if "2" in attribute.alert %}selected{% endif %}>2 Seats Left</option>
+                                                                        <option value="3" {% if "3" in attribute.alert %}selected{% endif %}>3 Seats Left</option> 
+                                                                        <option value="4" {% if "4" in attribute.alert %}selected{% endif %}>4 Seats Left</option>
+                                                                        <option value="5" {% if "5" in attribute.alert %}selected{% endif %}>5 Seats Left</option>
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                            
+                                                        </tr> 
+                                                    </form>
+                                                        {% endfor %}
+                                                    
+                                                </tbody>
+                                            </table>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endblock %}
+
+</html>

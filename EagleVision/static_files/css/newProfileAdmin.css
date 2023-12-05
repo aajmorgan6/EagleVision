@@ -1,0 +1,63 @@
+.background{
+    background: linear-gradient(transparent, maroon), url("/static/imgs/gassonSide.jpg");
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: brightness(0.4);
+    height: 100vh;
+    width: 100vw;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.theme {
+    color: antiquewhite;
+}
+.inverseTheme {
+    color: blue;
+}
+
+.cornerStyle {
+    border-radius: 10px !important;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    width: 50%;
+    /* border-color: black;
+    border-style: solid; */
+}
+
+.card {
+    height: 80%;
+    width: 50%;
+    margin-bottom: 2%;
+}
+
+.btn {
+    width: 100%;
+    color: white !important;
+    background-color: maroon !important;
+    border-radius: 4px !important;
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}

@@ -1,0 +1,84 @@
+.background{
+    background: linear-gradient(transparent, maroon), url("/static/imgs/gassonSide.jpg");
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: brightness(0.4);
+    height: 100vh;
+    width: 100vw;
+    border-color: transparent;
+    border-style: solid;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+}
+
+.theme {
+    background-color: maroon;
+    color: white;
+}
+
+.inverseTheme {
+    background-color: white;
+    color: maroon;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.card {
+    width: 50%;
+    border-radius: 10px !important;
+    margin-bottom: 2%;
+}
+
+.cornerStyle {
+    border-radius: 4px !important;
+}
+
+.logInbutton {
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    width: 41.67%;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.adminButton {
+    color: maroon;
+    border-color: maroon;
+    background-color: antiquewhite;
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    border-style: solid;
+}
+
+.studentButton {
+    color: white;
+    border-color: maroon;
+    background-color: maroon;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+    border-style: solid;
+}

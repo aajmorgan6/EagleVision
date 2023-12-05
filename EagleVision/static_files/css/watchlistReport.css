@@ -1,0 +1,72 @@
+html, body {
+    height: 100%;
+}
+
+.background{
+    background: linear-gradient(transparent, maroon),
+    url(/static/imgs/lightsOn.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: brightness(0.4);
+}
+
+.theme {
+    color: white;
+}
+
+.inverseTheme {
+    color: maroon;
+}
+
+.center-items {
+    margin-bottom: 2%;
+}
+
+.container{
+    display: flex;
+    margin: 2%;
+    align-items: flex-start;
+    background-color: white;
+    box-shadow: 
+    rgba(255, 255, 255, 0.4) -5px 5px, 
+    rgba(255, 255, 255, 0.3) -10px 10px;
+    /* border-color: black;
+    border-style: solid; */
+}
+
+.cornerStyle {
+    border-radius: 10px !important;
+}
+
+.status {
+    display: flex;
+}
+
+.label-select-container {
+    display: flex;
+    align-items: center;
+}
+
+.label-select-container label {
+    font-size: 15px;
+    width: auto;
+    margin-right: 10px;
+    
+}
+
+.label-select-container select {
+    width: 77%;
+}
+
+.rightBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 210px;
+}
+
+#open {
+    padding-left: 8px;
+    color: rgb(4, 189, 4);
+}
