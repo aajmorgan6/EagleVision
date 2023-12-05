@@ -1,1 +1,1 @@
-web: java -jar waitlistapp/waitlist-app-0.6.2.jar && cd ../ && cd ./EagleVision && celery -A EagleVision worker -l info && celery -A EagleVision beat -l info && python manage.py migrate && gunicorn EagleVision.wsgi --bind 0.0.0.0:$PORT
+web: java -jar waitlistapp/waitlist-app-0.6.2.jar && cd ../ && cd ./EagleVision && python manage.py migrate && gunicorn EagleVision.wsgi --bind 0.0.0.0:$PORT
