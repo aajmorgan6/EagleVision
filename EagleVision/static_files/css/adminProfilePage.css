@@ -1,14 +1,18 @@
 html, body {
+    overflow-y: auto !important;
+    width: 100%;
     height: 100%;
 }
 
-.background{
-    background: linear-gradient(transparent, maroon),
+.background {
+    background: linear-gradient(transparent, rgba(128,0,0,0.4)),
     url(/static/imgs/skyView.jpg);
     background-size: cover;
+    height: 100%;
+    width: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    backdrop-filter: brightness(0.4);
+    backdrop-filter: brightness(0.6);
 }
 
 .theme {
@@ -19,19 +23,11 @@ html, body {
     color: maroon;
 }
 
-.center-items {
-    margin-bottom: 2%;
-}
-
-.cardEdits{
-    border-radius: 30px;
-}
-
 .cornerStyle {
-    border-radius: 10px !important;
+    border-radius: 5px !important;
 }
 
-.studentTable {
+.mainTable {
     margin-left: 2.5%;
     width: 100%;
 }
@@ -40,8 +36,6 @@ html, body {
     display: flex;
     margin: 2%;
     align-items: flex-start;
-    /* border-color: black;
-    border-style: solid; */
 }
 
 .signOut {
@@ -50,7 +44,7 @@ html, body {
     width: 100%;
     background-color: maroon;
     color: white;
-    border-radius: 4px !important;
+    border-radius: 70px !important;
     text-decoration: none;
 }
 
@@ -58,13 +52,11 @@ html, body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 210px;
+    width: 230px;
 }
 
 .card {
-    box-shadow: 
-    rgba(255, 255, 255, 0.4) -5px 5px, 
-    rgba(255, 255, 255, 0.3) -10px 10px;
+    border: none !important;
 }
 
 .status {
@@ -78,4 +70,88 @@ html, body {
 #open {
     padding-left: 8px;
     color: rgb(4, 189, 4);
+}
+
+.watchSection {
+    display: flex;
+    height: 60px;
+    margin-left: 15px;
+    align-items: center;
+}
+
+.space-out {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+}
+
+.switchButton {
+    color: white !important;
+    background-color: maroon;
+    border: maroon;
+    padding: 10px 10px;
+    width: 100%;
+    border-radius: 70px !important;
+}
+
+h1 {
+    font-size: 4.2rem !important;
+    font-weight: 200 !important;
+}
+
+th {
+    font-size: 1.5rem !important;
+    font-weight: 250 !important;
+}
+
+.card-add {
+    font-size: 1.5rem !important;
+    font-weight: 250 !important;
+}
+
+.course-option {
+    border: 1px solid transparent !important;
+}
+
+.icon {
+    display: inline-block;
+    margin-left: 3px;
+}
+
+.remove-container {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+}
+
+.btn-danger {
+    background: transparent !important;
+    border: none !important;
+    margin: 1% !important;
+}
+
+.swirl {
+    border: 1px solid lightgray !important;
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+}
+
+.eye {
+    border: 1px solid lightgray !important;
+    background-color: green;
+    border-radius: 8px;
+}
+
+.remove-swirl {
+    background-color: red !important;
 }

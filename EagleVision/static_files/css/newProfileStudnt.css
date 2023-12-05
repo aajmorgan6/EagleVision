@@ -31,10 +31,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 84%;
+    height: 450px;
     width: 50%;
-    /* border-color: black;
-    border-style: solid; */
 }
 
 .card {
@@ -47,24 +45,24 @@ body {
     width: 100%;
     color: white !important;
     background-color: maroon !important;
-    border-radius: 4px !important;
+    border-radius: 70px !important;
+    width: 200px !important;
 }
 
-.card-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-body h2{
+h2 {
     display: flex;
     padding: 10px;
     font-size: 1.5em;
     text-align: center;
-    background-color: aquamarine;
+}
+
+h1 {
+    font-weight: 200 !important;
+}
+
+.card-footer {
+    font-weight: 300 !important;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
 }
