@@ -6,7 +6,9 @@ RUN mvn -f /home/app/pom.xml clean package
 #
 # Package stage
 #
-FROM openjdk:20-jre-slim
+RUN apt-get update && \
+    apt-get install -y openjdk-20-jre-headless && \
+    apt-get clean;
 COPY --from=build /home/app/waitlistapp/waitlist-app-0.6.2.jar /usr/local/lib/demo.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/usr/local/lib/demo.jar"]
