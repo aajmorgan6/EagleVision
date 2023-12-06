@@ -85,8 +85,8 @@ CSRF_TRUSTED_ORIGINS = [
 WSGI_APPLICATION = 'EagleVision.wsgi.application'
 
 # Celery Broker - Redis  
-CELERY_BROKER_URL = os.environ.get("REDIS_URL")
-CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL")  
+CELERY_BROKER_URL = os.environ.get("REDIS_PRIVATE_URL")
+CELERY_RESULT_BACKEND = os.environ.get("REDIS_PRIVATE_URL")  
 CELERY_ACCEPT_CONTENT = ['application/json']  
 CELERY_TASK_SERIALIZER = 'json'  
 CELERY_RESULT_SERIALIZER = 'json'  
