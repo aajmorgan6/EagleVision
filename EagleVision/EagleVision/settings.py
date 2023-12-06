@@ -79,7 +79,8 @@ TEMPLATES = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://eaglevision-production-e9be.up.railway.app/"
+    "https://eaglevision-production-e9be.up.railway.app/",
+    "https://eaglevision-production-e9be.up.railway.app"
 ]
 
 WSGI_APPLICATION = 'EagleVision.wsgi.application'
