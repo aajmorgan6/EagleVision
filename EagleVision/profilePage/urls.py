@@ -7,7 +7,6 @@ urlpatterns = [
     path("editAdminProfile/", views.editAdminProfile, name="editAdminProfile"),
     path('current_change/', views.current_change),
     path('get_config/', views.get_config),
-    path('change_user/', views.changeUser, name="changeUser"),
     path('removeClass/<str:class_id>/', views.removeClass, name="removeClass"),
     path('changeAlert', views.changeAlert, name="changeAlert")
 ]

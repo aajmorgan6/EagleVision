@@ -53,7 +53,6 @@ def profile(request: HttpRequest):
         return redirect("/signUp")
 
     # Render correct page
-    dev = True
     watchlist = PersonalWatchlist.objects.filter(user=nickname, active_semester=semester) # all watchlists
     if not watchlist:
         populate_db()
@@ -141,21 +140,6 @@ def editAdminProfile(request: HttpRequest):
         form = EditProfileAdmin()
         form.fields["department"].initial = admin.majors
     return render(request, "editAdminProfile.html", {"form": form, "user": session["userinfo"]}) 
-
-
-def changeUser(request):
-    session = request.session.get("user")
-    if not session:
-        return redirect("/login")
-    nickname = session["userinfo"]["nickname"]
-    try:
-        user = Student.objects.get(username=nickname)
-    except:
-        return redirect("/signUp")
-    user.is_student = not user.is_student
-    user.save()
-    return redirect("/profile/")
-
 
 def current_change(request):
     res = {
