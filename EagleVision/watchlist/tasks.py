@@ -20,7 +20,7 @@ def send_emails(self):
             # get num available
             if watch.num_watchers <= 0:
                 continue
-            r = requests.get("http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=" + watch.class_id)
+            r = requests.get(f"{settings.API_ENDPOINT}/waitlist/waitlistactivityofferings?courseOfferingId=" + watch.class_id)
             if r.status_code == 200:
                 activities = r.json()
                 available = 0
@@ -61,7 +61,7 @@ def check_classes(self):
     if not sys:
         return
     if sys.system_open:
-        r = requests.get("http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=")
+        r = requests.get(f"{settings.API_ENDPOINT}/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=")
         if r.status_code == 200:
             classes = r.json()
             filter_courses = FilterCourseInfo.objects.all()
@@ -73,7 +73,7 @@ def check_classes(self):
                         model.course_code = course["courseOffering"]["courseCode"]
                         model.credits = course["courseOffering"]["creditOptionId"][-3:]
                         model.save()
-                        activities = requests.get("http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=" + model.course_id)
+                        activities = requests.get(f"{settings.API_ENDPOINT}/waitlist/waitlistactivityofferings?courseOfferingId=" + model.course_id)
                         if activities.status_code != 200:
                             continue
                         activities = activities.json()

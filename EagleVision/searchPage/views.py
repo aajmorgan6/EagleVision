@@ -12,6 +12,7 @@ from .models import FilterCourseInfo
 from loginPage.forms import RegistrationFormStudent
 from django.db.models import Q
 import re   
+from django.conf import settings
 # Create your views here.
 
 SCHOOLS = {
@@ -137,7 +138,7 @@ SCHOOLS = {
 
 def create_class_list():
     # Get all classes
-    r = requests.get("http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=")
+    r = requests.get(f"{settings.API_ENDPOINT}/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=")
     if r.status_code == 200:
         courses = r.json()
         for course in courses:
@@ -150,7 +151,7 @@ def create_class_list():
                 if code in SCHOOLS[school]:
                     model.school = school
             model.save()
-            activities = requests.get("http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=" + model.course_id)
+            activities = requests.get(f"{settings.API_ENDPOINT}/waitlist/waitlistactivityofferings?courseOfferingId=" + model.course_id)
             if activities.status_code != 200:
                 continue
             activities = activities.json()
@@ -353,7 +354,7 @@ def cleanClasses(classes):
         class_id = classes[i]["courseOffering"]["id"]
 
         # Activity list API call
-        r = requests.get("http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=" + class_id)
+        r = requests.get(f"{settings.API_ENDPOINT}/waitlist/waitlistactivityofferings?courseOfferingId=" + class_id)
         activites = []
         if r.status_code == 200:
             cls = r.json()
@@ -606,12 +607,12 @@ def landingPage(request: HttpRequest):
     tmp = []
     if search:
         for url in search:
-            r = requests.get(f'http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code={url}')
+            r = requests.get(f'{settings.API_ENDPOINT}/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code={url}')
             if r.status_code == 200:
                 tmp += r.json()
 
     else:
-        api_url = 'http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='
+        api_url = f'{settings.API_ENDPOINT}/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='
         response = requests.get(api_url)
         if response.status_code == 200:
             tmp = response.json()

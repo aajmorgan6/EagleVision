@@ -9,6 +9,7 @@ from .forms import EditProfileAdmin, EditFormStudent
 from watchlist.views import populate_db
 import requests
 from searchPage.views import getSemester
+from django.conf import settings
 
 # Create your views here.
 
@@ -61,7 +62,7 @@ def profile(request: HttpRequest):
     classes = []
     watches = cleanWatchlist(watchlist)
     for c in watches:
-        r = requests.get("http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=" + watches[c]["course_code"])
+        r = requests.get(f"{settings.API_ENDPOINT}/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=" + watches[c]["course_code"])
         if r.status_code == 200:
             classes.append(r.json()[0])
     classes = cleanClasses(classes)

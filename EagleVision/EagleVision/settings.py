@@ -84,6 +84,8 @@ CSRF_TRUSTED_ORIGINS = [
 
 WSGI_APPLICATION = 'EagleVision.wsgi.application'
 
+API_ENDPOINT = "https://waitlistapi.railway.internal"
+
 # Celery Broker - Redis  
 CELERY_BROKER_URL = os.environ.get("REDIS_PRIVATE_URL")
 CELERY_RESULT_BACKEND = os.environ.get("REDIS_PRIVATE_URL")  
