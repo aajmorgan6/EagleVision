@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from profilePage.models import SystemConfig
 from loginPage.models import Student
-import os
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 import requests
 from lxml import etree
 from watchlist.models import PersonalWatchlist, OverallWatchlist
@@ -11,7 +10,6 @@ from datetime import date
 from .models import FilterCourseInfo
 from loginPage.forms import RegistrationFormStudent
 from django.db.models import Q
-import re   
 from django.conf import settings
 # Create your views here.
 

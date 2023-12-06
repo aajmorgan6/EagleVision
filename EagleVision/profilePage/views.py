@@ -4,9 +4,7 @@ from .models import SystemConfig
 from loginPage.models import Student
 from watchlist.models import PersonalWatchlist, OverallWatchlist
 from searchPage.views import cleanClasses, cleanWatchlist, checkClasses, drop_class, add_class
-from loginPage.forms import RegistrationFormStudent
 from .forms import EditProfileAdmin, EditFormStudent
-from watchlist.views import populate_db
 import requests
 from searchPage.views import getSemester
 from django.conf import settings
@@ -54,9 +52,6 @@ def profile(request: HttpRequest):
 
     # Render correct page
     watchlist = PersonalWatchlist.objects.filter(user=nickname, active_semester=semester) # all watchlists
-    if not watchlist:
-        populate_db()
-        watchlist = PersonalWatchlist.objects.filter(user=nickname, active_semester=semester)
 
     classes = []
     watches = cleanWatchlist(watchlist)
