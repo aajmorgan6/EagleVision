@@ -617,6 +617,8 @@ def landingPage(request: HttpRequest):
         response = requests.get(api_url)
         if response.status_code == 200:
             tmp = response.json()
+            if len(FilterCourseInfo.objects.all() != len(tmp)):
+                create_class_list()
 
     if course_ids:
         for t in tmp:
