@@ -163,6 +163,7 @@ def create_class_list():
                 if len(events) == 0:
                     # Asynch classes
                     model.asynch = True
+                    days = ""
                 else:
                     location = events[0]["locationDescription"]
                     place = activity["scheduleNames"][0][len(location) + 1:].split(" ")
