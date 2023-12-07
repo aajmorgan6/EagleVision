@@ -7,9 +7,9 @@ from profilePage.models import SystemConfig
 import requests
 from searchPage.views import getSemester
 from searchPage.models import FilterCourseInfo
+from celery import shared_task # type: ignore
 
-
-@app.task(bind=True)
+@shared_task(bind=True)
 def send_emails(self):
     semester = getSemester()
     # check if system is on
@@ -54,7 +54,7 @@ def send_emails(self):
         )
 
 
-@app.task(bind=True)
+@shared_task(bind=True)
 def check_classes(self):
     semester = getSemester()
     sys = SystemConfig.objects.filter(semester_code=semester).first()
