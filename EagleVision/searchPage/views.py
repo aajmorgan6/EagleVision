@@ -142,7 +142,7 @@ def create_class_list():
         courses = r.json()
         for course in courses:
             if FilterCourseInfo.objects.get(course_id=course["courseOffering"]["id"]):
-                return
+                continue
             model = FilterCourseInfo()
             model.course_id = course["courseOffering"]["id"]
             model.course_code = course["courseOffering"]["courseCode"]
