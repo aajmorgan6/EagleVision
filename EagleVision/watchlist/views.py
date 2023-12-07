@@ -69,15 +69,6 @@ def watchlistOverview(request: HttpRequest):
         elif session_filters == "professor_r":
             watches = watches.order_by("-professor").values()     
 
-    # if not watches:
-    #     # class.activityOffering.name, looks different on API
-    #     # will just fill up these courses for now
-    #     # can't search for class by specific course ID, so will use regular class ID and then
-    #     # loop through classes until the name/activity_id matches
-    #     # once we're done with this, we can comment it out so it shows blank watchlists
-    #     # populate_db()
-
-    #     watches = OverallWatchlist.objects.filter(active_semester=semester)
 
     return render(request, "watchlistReport.html", locals())
 
