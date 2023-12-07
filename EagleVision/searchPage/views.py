@@ -11,6 +11,7 @@ from .models import FilterCourseInfo
 from loginPage.forms import RegistrationFormStudent
 from django.db.models import Q
 from django.conf import settings
+from .tasks import check_classes
 # Create your views here.
 
 SCHOOLS = {
@@ -434,7 +435,7 @@ def landingPage(request: HttpRequest):
         return redirect("/login")
 
     if len(FilterCourseInfo.objects.all()) == 0:
-        create_class_list()
+        check_classes.delay()
     
     # See if user exists in database
     try:
