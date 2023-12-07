@@ -24,7 +24,7 @@ def getSemester() -> str:
 
 @shared_task(bind=True)
 def check_classes(self):
-    semester = getSemester()
+    semester = '2024S'
     sys = SystemConfig.objects.filter(semester_code=semester).first()
     if not sys:
         return
