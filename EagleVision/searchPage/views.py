@@ -141,7 +141,7 @@ def create_class_list():
     if r.status_code == 200:
         courses = r.json()
         for course in courses:
-            if FilterCourseInfo.objects.get(course_id=course["courseOffering"]["id"]):
+            if FilterCourseInfo.objects.filter(course_id=course["courseOffering"]["id"]).first():
                 continue
             model = FilterCourseInfo()
             model.course_id = course["courseOffering"]["id"]
