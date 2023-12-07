@@ -1,4 +1,4 @@
-Authlib==1.2.1
+authlib ~= 1.0
 celery==5.3.6
 Django==4.2.5
 gunicorn==21.2.0
