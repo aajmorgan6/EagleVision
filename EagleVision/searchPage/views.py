@@ -435,7 +435,7 @@ def landingPage(request: HttpRequest):
         return redirect("/login")
 
     if len(FilterCourseInfo.objects.all()) == 0:
-        check_classes.delay()
+        create_class_list()
     
     # See if user exists in database
     try:
