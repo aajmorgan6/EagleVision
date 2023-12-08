@@ -22,7 +22,7 @@ def getSemester() -> str:
         
     return year + sem
 
-@shared_task(bind=True)
+@shared_task(bind=True, ignore_result=True)
 def check_classes(self):
     semester = '2024S'
     sys = SystemConfig.objects.filter(semester_code=semester).first()

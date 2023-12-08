@@ -9,7 +9,7 @@ from searchPage.views import getSemester
 from searchPage.models import FilterCourseInfo
 from celery import shared_task # type: ignore
 
-@shared_task(bind=True)
+@shared_task(bind=True, ignore_result=True)
 def send_emails(self):
     semester = getSemester()
     # check if system is on
