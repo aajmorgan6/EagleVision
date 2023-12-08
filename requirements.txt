@@ -1,5 +1,5 @@
 authlib ~= 1.0
-celery==5.3.6
+celery==5.2.7
 Django==4.2.5
 gunicorn==21.2.0
 lxml==4.9.2
