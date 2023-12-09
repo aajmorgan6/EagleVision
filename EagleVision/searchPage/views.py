@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from profilePage.models import SystemConfig
 from loginPage.models import Student
-import os
 from django.http import HttpRequest
 import requests
 from lxml import etree
@@ -12,6 +11,7 @@ from .models import FilterCourseInfo
 from loginPage.forms import RegistrationFormStudent
 from django.db.models import Q
 from django.conf import settings
+from .tasks import check_classes
 # Create your views here.
 
 SCHOOLS = {
@@ -433,8 +433,9 @@ def landingPage(request: HttpRequest):
     if not bc_user:
         return redirect("/login")
 
-    if len(FilterCourseInfo.objects.all()) == 0:
-        create_class_list()
+    if len(FilterCourseInfo.objects.filter(active_semester=semester)) == 0:
+        # create_class_list()
+        check_classes.delay()
     
     # See if user exists in database
     try:
@@ -614,8 +615,9 @@ def landingPage(request: HttpRequest):
         response = requests.get(api_url)
         if response.status_code == 200:
             tmp = response.json()
-            if len(tmp) != len(FilterCourseInfo.objects.all()):
-                create_class_list()
+            if len(tmp) != len(FilterCourseInfo.objects.filter(active_semester=semester)):
+                # create_class_list()
+                check_classes.delay()
 
     if course_ids:
         for t in tmp:

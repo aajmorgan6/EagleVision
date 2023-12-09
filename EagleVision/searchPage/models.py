@@ -51,5 +51,7 @@ class FilterCourseInfo(models.Model):
 
     instructors = models.CharField(max_length=200, default="")
 
+    active_semester = models.CharField(max_length=6)
+
     def __str__(self):
         return self.course_code

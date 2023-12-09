@@ -43,6 +43,7 @@ def check_classes(self):
                         model.course_id = course["courseOffering"]["id"]
                         model.course_code = course["courseOffering"]["courseCode"]
                         model.credits = course["courseOffering"]["creditOptionId"][-3:]
+                        model.active_semester = semester
                         model.save()
                         activities = requests.get(f"{settings.API_ENDPOINT}/waitlist/waitlistactivityofferings?courseOfferingId=" + model.course_id)
                         if activities.status_code != 200:
