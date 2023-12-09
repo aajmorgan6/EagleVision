@@ -164,6 +164,7 @@ def create_class_list():
                     # Asynch classes
                     model.asynch = True
                     days = ""
+                    time = ""
                 else:
                     location = events[0]["locationDescription"]
                     place = activity["scheduleNames"][0][len(location) + 1:].split(" ")
@@ -236,7 +237,6 @@ def create_class_list():
 def loadCourses(course_code, week, time, credits, delivery, instructor, schools):
     filter_course_info = FilterCourseInfo.objects.all()
     courses = None        
-    print(course_code)
     if course_code:
         for cc in course_code:
             if not courses:
