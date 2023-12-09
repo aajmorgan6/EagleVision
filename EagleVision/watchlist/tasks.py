@@ -13,7 +13,7 @@ from celery import shared_task # type: ignore
 def send_emails(self):
     semester = getSemester()
     # check if system is on
-    if SystemConfig.objects.get(semester_code=semester):
+    if SystemConfig.objects.filter(semester_code=semester).first():
         overall_watch = OverallWatchlist.objects.all()
         messages = tuple()
         for watch in overall_watch:
