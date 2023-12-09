@@ -95,7 +95,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'  
 CELERY_TIMEZONE = "Europe/Moscow"
 
-broker_connection_retry_on_startup = True
+CELERY_broker_connection_retry_on_startup = True
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
