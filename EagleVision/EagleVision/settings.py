@@ -38,7 +38,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://eaglevision-production-a90a.up.railway.app'
 ]
 
-API_ENDPOINT = "https://eaglevision-production-a90a.up.railway.app"
+API_ENDPOINT = "https://eagleappdata-production-cb5d.up.railway.app"
 
 # Application definition
 
