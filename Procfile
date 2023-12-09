@@ -1,1 +1,1 @@
-web: cd ./EagleVision && python manage.py migrate && gunicorn EagleVision.wsgi --bind 0.0.0.0:$PORT && celery -A EagleVision worker
+web: cd ./EagleVision && celery -A EagleVision beat && python manage.py migrate && gunicorn EagleVision.wsgi --bind 0.0.0.0:$PORT
