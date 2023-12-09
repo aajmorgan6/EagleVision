@@ -6,10 +6,9 @@ from watchlist.models import PersonalWatchlist, OverallWatchlist
 from profilePage.models import SystemConfig
 import requests
 from searchPage.views import getSemester
-from searchPage.models import FilterCourseInfo
-from celery import shared_task # type: ignore
+from EagleVision.celery import app
 
-@shared_task(bind=True, ignore_result=True)
+@app.task(bind=True, ignore_result=True)
 def send_emails(self):
     semester = getSemester()
     # check if system is on

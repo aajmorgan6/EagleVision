@@ -3,7 +3,7 @@ from django.conf import settings
 from profilePage.models import SystemConfig
 import requests
 from searchPage.models import FilterCourseInfo
-from celery import shared_task # type: ignore
+from EagleVision.celery import app
 from datetime import date
 
 def getSemester() -> str:
@@ -22,7 +22,7 @@ def getSemester() -> str:
         
     return year + sem
 
-@shared_task(bind=True, ignore_result=True)
+@app.task(bind=True, ignore_result=True)
 def check_classes(self):
     semester = '2024S'
     sys = SystemConfig.objects.filter(semester_code=semester).first()
