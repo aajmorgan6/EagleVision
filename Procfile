@@ -1,1 +1,1 @@
-web: cd ./EagleVision && celery -A EagleVision beat --detach && python manage.py migrate && gunicorn EagleVision.wsgi --bind 0.0.0.0:$PORT
+web: cd ./EagleVision && celery -A EagleVision beat --detach && celery -A EagleVision worker --detach && python manage.py migrate && gunicorn EagleVision.wsgi --bind 0.0.0.0:$PORT
