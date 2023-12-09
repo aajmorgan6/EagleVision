@@ -1,1 +1,1 @@
-web: cd ./EagleVision && python manage.py makesuper && python manage.py migrate && gunicorn EagleVision.wsgi --bind 0.0.0.0:$PORT
+web: cd ./EagleVision && python manage.py migrate && gunicorn EagleVision.wsgi --bind 0.0.0.0:$PORT
