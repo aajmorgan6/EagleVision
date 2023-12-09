@@ -433,6 +433,8 @@ def landingPage(request: HttpRequest):
     if not bc_user:
         return redirect("/login")
 
+    semester = getSemester()
+
     if len(FilterCourseInfo.objects.filter(active_semester=semester)) == 0:
         # create_class_list()
         check_classes.delay()
@@ -442,8 +444,6 @@ def landingPage(request: HttpRequest):
         user = Student.objects.get(username=session["userinfo"]["nickname"])
     except:
         return redirect("/signUp")
-
-    semester = getSemester()
 
     STEP = 25 # This is how many classes are shown, there's only 23 CSCI so i made it 5
 
