@@ -44,7 +44,7 @@ def send_emails(self):
                         p.save()
                 s = "s" if available != 1 else ""
                 subject = f"Open Spot in {watch.class_name}"
-                message = f"Hurry, {available} spot{s} left in {watch.class_name}! Go to https://eaen.bc.edu/student-registration/#/ to register!\nIf you want to stop this alert, remove this class from your watchlist at {settings.API_ENDPOINT}/profile/"
+                message = f"Hurry, {available} spot{s} left in {watch.class_name}! Go to https://eaen.bc.edu/student-registration/#/ to register!\nIf you want to stop this alert, remove this class from your watchlist at {settings.CSRF_TRUSTED_ORIGINS[1]}/profile/"
                 from_email = settings.EMAIL_HOST_USER
                 messages_list = [(subject, message, from_email, [email]) for email in emails]
                 messages += tuple(messages_list)
