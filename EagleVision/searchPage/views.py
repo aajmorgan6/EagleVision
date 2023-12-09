@@ -11,7 +11,6 @@ from .models import FilterCourseInfo
 from loginPage.forms import RegistrationFormStudent
 from django.db.models import Q
 from django.conf import settings
-from .tasks import check_classes
 # Create your views here.
 
 SCHOOLS = {
@@ -137,6 +136,7 @@ SCHOOLS = {
 
 def create_class_list():
     # Get all classes
+    semester = getSemester()
     r = requests.get(f"{settings.API_ENDPOINT}/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=")
     if r.status_code == 200:
         courses = r.json()
@@ -145,6 +145,7 @@ def create_class_list():
             model.course_id = course["courseOffering"]["id"]
             model.course_code = course["courseOffering"]["courseCode"]
             model.credits = course["courseOffering"]["creditOptionId"][-3:]
+            model.active_semester = semester
             code = model.course_code[:4]
             for school in SCHOOLS:
                 if code in SCHOOLS[school]:
@@ -436,8 +437,7 @@ def landingPage(request: HttpRequest):
     semester = getSemester()
 
     if len(FilterCourseInfo.objects.filter(active_semester=semester)) == 0:
-        # create_class_list()
-        check_classes.delay()
+        create_class_list()
     
     # See if user exists in database
     try:
@@ -616,8 +616,7 @@ def landingPage(request: HttpRequest):
         if response.status_code == 200:
             tmp = response.json()
             if len(tmp) != len(FilterCourseInfo.objects.filter(active_semester=semester)):
-                # create_class_list()
-                check_classes.delay()
+                create_class_list()
 
     if course_ids:
         for t in tmp:
