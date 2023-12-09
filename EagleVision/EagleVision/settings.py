@@ -33,6 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+API_ENDPOINT = "https://eaglevision-production-a90a.up.railway.app"
 
 # Application definition
 
