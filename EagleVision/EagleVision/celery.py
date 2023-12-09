@@ -33,7 +33,7 @@ app.conf.beat_schedule = {
         'schedule': 60.0
     },
     'check_new_classes': {
-        'task': 'searchPage.tasks.check_classes',
+        'task': 'watchlist.tasks.check_classes',
         # 'schedule': crontab(hour='*/12') # run every 12 hours
         'schedule': 60.0
     }

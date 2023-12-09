@@ -3,11 +3,13 @@ from django.shortcuts import render, redirect
 from profilePage.models import SystemConfig
 from loginPage.models import Student
 from .models import OverallWatchlist, PersonalWatchlist
+import random
 from searchPage.views import getSemester
 
 # Create your views here.
- 
+
 def watchlistOverview(request: HttpRequest):
+    #print(class_id)
     # See if user is validated by OAuth
     session = request.session.get("user")
     if not session:
@@ -67,8 +69,7 @@ def watchlistOverview(request: HttpRequest):
         elif session_filters == "professor":
             watches = watches.order_by("professor").values()
         elif session_filters == "professor_r":
-            watches = watches.order_by("-professor").values()     
-
+            watches = watches.order_by("-professor").values()
 
     return render(request, "watchlistReport.html", locals())
 

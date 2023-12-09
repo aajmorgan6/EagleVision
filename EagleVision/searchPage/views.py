@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from profilePage.models import SystemConfig
 from loginPage.models import Student
+import os
 from django.http import HttpRequest
 import requests
 from lxml import etree
@@ -11,7 +12,6 @@ from .models import FilterCourseInfo
 from loginPage.forms import RegistrationFormStudent
 from django.db.models import Q
 from django.conf import settings
-from .tasks import check_classes
 # Create your views here.
 
 SCHOOLS = {
@@ -141,8 +141,6 @@ def create_class_list():
     if r.status_code == 200:
         courses = r.json()
         for course in courses:
-            if FilterCourseInfo.objects.filter(course_id=course["courseOffering"]["id"]).first():
-                continue
             model = FilterCourseInfo()
             model.course_id = course["courseOffering"]["id"]
             model.course_code = course["courseOffering"]["courseCode"]
@@ -163,8 +161,6 @@ def create_class_list():
                 if len(events) == 0:
                     # Asynch classes
                     model.asynch = True
-                    days = ""
-                    time = ""
                 else:
                     location = events[0]["locationDescription"]
                     place = activity["scheduleNames"][0][len(location) + 1:].split(" ")
@@ -618,7 +614,7 @@ def landingPage(request: HttpRequest):
         response = requests.get(api_url)
         if response.status_code == 200:
             tmp = response.json()
-            if len(FilterCourseInfo.objects.all()) != len(tmp):
+            if len(tmp) != len(FilterCourseInfo.objects.all()):
                 create_class_list()
 
     if course_ids:
@@ -693,13 +689,15 @@ def add_class(class_id, activity_id, user, data, user_name):
     professor = data.get("professor")
 
     student = Student.objects.get(username=user)
-    edit = True
+
     watch = PersonalWatchlist.objects.filter(
             class_id=class_id, 
             activity_id=activity_id,
             user=user,
             active_semester=semester
         ).first()
+
+    edit = True
 
     if not watch:
         edit = False
@@ -761,10 +759,6 @@ def notification_selection(request):
 
         else:
             add_class(class_id, activity_id, session["userinfo"].get("nickname"), data, session["userinfo"].get("name"))
-
-        # TODO: run another periodic task with celery to make sure 
-        # num_watchers = len(PersonalWatchlist.objects.filter(class_id=class_id, activity_id=activity_id))
-        # since multiple users might be accessing it at the same time
 
         
         # save id for last open class (from submit) so we can keep it open

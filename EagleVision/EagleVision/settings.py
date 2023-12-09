@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv, find_dotenv #type: ignore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,24 +79,16 @@ TEMPLATES = [
     },
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://eaglevision-production-e9be.up.railway.app/",
-    "https://eaglevision-production-e9be.up.railway.app"
-]
-
 WSGI_APPLICATION = 'EagleVision.wsgi.application'
 
-API_ENDPOINT = "https://eagleappdata-production-cb5d.up.railway.app"
-
 # Celery Broker - Redis  
-CELERY_BROKER_URL = os.environ.get("REDIS_URL")
-CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL")  
+CELERY_BROKER_URL = os.environ.get("REDIS_URL")  
+CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL")
 CELERY_ACCEPT_CONTENT = ['application/json']  
 CELERY_TASK_SERIALIZER = 'json'  
 CELERY_RESULT_SERIALIZER = 'json'  
 CELERY_TIMEZONE = "Europe/Moscow"
 
-CELERY_broker_connection_retry_on_startup = True
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
