@@ -34,7 +34,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://eaglevision-production-a90a.up.railway.app/'
+    'https://eaglevision-production-a90a.up.railway.app/',
+    'https://eaglevision-production-a90a.up.railway.app'
 ]
 
 API_ENDPOINT = "https://eaglevision-production-a90a.up.railway.app"
