@@ -14,6 +14,8 @@ def send_emails(self):
     semester = getSemester()
     # check if system is on
     if SystemConfig.objects.filter(semester_code=semester).first():
+        if not SystemConfig.objects.filter(semester_code=semester).first().system_open:
+            return
         overall_watch = OverallWatchlist.objects.all()
         messages = tuple()
         for watch in overall_watch:
